@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dataTable id="stationData" var="station"
+		value="#{adminBean.departureStationService.departureStationList}"
+		widgetVar="stationTable" emptyMessage="Nuk gjendet qyteti">
+
+		<f:facet name="header">
+			<p:panelGrid columns="2" layout="grid">
+				<h:outputText value="Lista e Stacioneve" style='float: left;'></h:outputText>
+				<p:commandButton value="Shto Stacion" icon="ui-icon-plus"
+					oncomplete="PF('AddStationDialog').show();" style="float: right;"></p:commandButton>
+			</p:panelGrid>
+		</f:facet>
+
+		<p:column filterBy="" headerText="Adresa e Stacionit"
+			filterMatchMode="contains">
+			<h:outputText value="#{station.station_address}" />
+		</p:column>
+
+		<p:column filterBy="" headerText="Qyteti" filterMatchMode="lte">
+			<h:outputText value="#{station.city.city_name}" />
+		</p:column>
+
+		<p:column headerText="Ndrysho">
+			<p:commandLink oncomplete="PF('EditStationDialog').show()"
+				title="Ndrysho" update=":tabView:stationForm:editStationPanel">
+				<h:outputText styleClass="ui-icon ui-icon-wrench"
+					style="margin:0 auto;" />
+				<f:setPropertyActionListener value="#{station}"
+					target="#{adminBean.departureStationService.selectedDepartureStation}" />
+			</p:commandLink>
+		</p:column>
+
+	</p:dataTable>
+
+	<p:dialog header="Ju lutem fusni te dhenat"
+		widgetVar="AddStationDialog" minHeight="40">
+		<h:panelGrid id="addStationPanel" columns="2" cellpadding="10">
+
+			<h:outputLabel value="Adresa e Destinacionit:" />
+			<h:inputText
+				value="#{adminBean.departureStationService.departureStation.station_address}"></h:inputText>
+			<h:outputLabel value="Qyteti:" />
+			<p:selectOneMenu
+				value="#{adminBean.departureStationService.departureStation.city}"
+				converter="#{cityConverter}" label="Qyteti">
+				<f:selectItems value="#{adminBean.cityService.cityList}" var="city"
+					itemLabel="#{city.city_name}" itemValue="#{city}" />
+			</p:selectOneMenu>
+
+		</h:panelGrid>
+
+		<h:commandButton value="Shto Stacion"></h:commandButton>
+	</p:dialog>
+
+	<p:dialog header="Ndryshoni te dhenat" widgetVar="EditStationDialog"
+		minHeight="40">
+		<h:panelGrid id="editStationPanel" columns="2" cellpadding="10">
+
+			<h:outputLabel value="Adresa e Destinacionit:" />
+			<h:inputText
+				value="#{adminBean.departureStationService.selectedDepartureStation.station_address}"></h:inputText>
+			<h:outputLabel value="Qyteti:" />
+			<p:selectOneMenu
+				value="#{adminBean.departureStationService.selectedDepartureStation.city}"
+				converter="#{cityConverter}" label="Qyteti">
+				<f:selectItem
+					itemLabel="#{adminBean.departureStationService.selectedDepartureStation.city.city_name}"
+					itemValue="#{adminBean.departureStationService.selectedDepartureStation.city}" />
+				<f:selectItems value="#{adminBean.cityService.cityList}" var="city"
+					itemLabel="#{city.city_name}" itemValue="#{city}" />
+			</p:selectOneMenu>
+
+		</h:panelGrid>
+
+		<p:commandButton value="Ndrysho Destinacionin"
+			oncomplete="PF('EditStationDialog').hide()"
+			actionListener="#{adminBean.departureStationService.editDepartureStation()}"></p:commandButton>
+	</p:dialog>
+
+</ui:composition>

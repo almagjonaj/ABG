@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>ABG</title>
+	<link href="../resources/css/layout.css" rel="stylesheet"
+		type="text/css" media="all"></link>
+	<h:outputStylesheet library="css" name="user.css" />
+</h:head>
+
+<h:body id="top">
+
+	<div class="bgded overlay"
+		style="background-image: url('../resources/images/sight-3.jpg');">
+		<div class="wrapper row1">
+			<ui:include src="../components/header.xhtml" />
+		</div>
+		<section id="pageintro" class="hoc clear">
+			<div>
+				<h2 class="heading">Albanian Best Guide</h2>
+				<p>Zgjidhni te eksploroni Shqiperine me syte tane</p>
+				<input value="Oferta!" type="button" class="kerko"
+					onClick="document.getElementById('middle').scrollIntoView();" />
+			</div>
+		</section>
+	</div>
+
+	<h:form id="middle">
+		<p:dataScroller value="#{adminBean.guideService.getAvailableGuides()}"
+			var="guide" chunkSize="10">
+			<f:facet name="header">
+            		Ofertat e Fundit!
+        		</f:facet>
+
+			<h:panelGrid columns="4" style="width:100%"
+				columnClasses="logo,detail">
+				<p:graphicImage name="../resources/images/Theth.jpg" />
+
+				<p:outputPanel>
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputText value="Destinacioni: " />
+						<h:outputText
+							value="#{guide.destination.destination_address}, #{guide.destination.city.city_name}"
+							style="font-weight: bold" />
+
+						<h:outputText value="Stacioni i Nisjes: " />
+						<h:outputText
+							value="#{guide.departure_station.station_address}, #{guide.departure_station.city.city_name}"
+							style="font-weight: bold" />
+
+						<h:outputText value="Orari i Nisjes: " />
+						<h:outputText value="#{guide.departure_time}"
+							style="font-weight: bold" />
+					</h:panelGrid>
+				</p:outputPanel>
+				<p:outputPanel>
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputText value="Orari i Mbritjes ne Destinacion:" />
+						<h:outputText value="#{guide.destination_arrival_time}"
+							style="font-weight: bold" />
+
+						<h:outputText value="Nisja nga Destinacioni:" />
+						<h:outputText value="#{guide.destination_leave_time}"
+							style="font-weight: bold" />
+
+						<h:outputText value="Mberritja: " />
+						<h:outputText value="#{guide.arrival_time}"
+							style="font-weight: bold" />
+					</h:panelGrid>
+				</p:outputPanel>
+			</h:panelGrid>
+			<h:panelGrid>
+				<p:commandButton value="Rezervo" oncomplete="PF('Rezervo').show()">
+				</p:commandButton>
+			</h:panelGrid>
+
+			<p:dialog header="Rezervo?" widgetVar="Rezervo" minHeight="40">
+				<h:panelGrid id="rezervo" columns="3" cellpadding="10">
+					<h:outputLabel value="Konfirmo: "></h:outputLabel>
+					<p:commandButton value="Rezervo"
+						actionListener="#{adminBean.Rezervo()}"
+						oncomplete="PF('Rezervo').hide();"></p:commandButton>
+					<p:commandButton value="Anullo" oncomplete="PF('Rezervo').hide()"></p:commandButton>
+				</h:panelGrid>
+
+			</p:dialog>
+
+		</p:dataScroller>
+	</h:form>
+
+
+	<div class="wrapper row4 bgded">
+		<ui:include src="../components/footer.xhtml" />
+	</div>
+
+	<!-- JAVASCRIPTS -->
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/jquery.backtotop.js"></script>
+	<script src="resources/js/jquery.mobilemenu.js"></script>
+</h:body>
+</html>

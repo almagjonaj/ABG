@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<div class="bgded overlay"
+		style="background-image: url('../resources/images/sight-3.jpg');">
+		<div class="wrapper row1">
+			<header id="header" class="hoc clear">
+				<!-- Form ################################################################################################ -->
+				<h:form>
+					<p:outputPanel rendered="#{!adminBean.userService.admin_logged}">
+						<nav id="mainav" class="fl_left">
+							<ul class="clear">
+								<li class="#{functionsBean.getIndex()}"><a
+									href="index.xhtml">Faqja Kryesore</a></li>
+								<li class="#{functionsBean.getSearch()}"><a
+									href="search.xhtml">Kerko Guide</a></li>
+								<li class="#{functionsBean.getContacts()}"><a
+									href="contact.xhtml">Na kontaktoni</a></li>
+							</ul>
+						</nav>
+					</p:outputPanel>
+
+					<div id="logo" class="fl_right">
+						<h:panelGrid columns="2" style="background: transparent"
+							rendered="#{!adminBean.logged}">
+							<p:commandButton value="HYR" styleClass="login"
+								oncomplete="PF('logInDialog').show();" />
+							<p:commandButton value="REGJISTROHU" styleClass="login" />
+						</h:panelGrid>
+						<h:panelGrid columns="3" style="background: transparent"
+							rendered="#{adminBean.logged}">
+							<h:outputLabel
+								value="PERSHENDETJE, #{adminBean.userService.logged_user.getUser_name()}"
+								styleClass="pershendetje"></h:outputLabel>
+							<p:commandButton value="Llogaria" styleClass="login"
+								action="llogaria.xhtml?faces-redirect=true" />
+							<p:commandButton value="DIL" styleClass="login"
+								actionListener="#{adminBean.LogOut()}" />
+						</h:panelGrid>
+
+						<p:dialog id="logDialog" header="Ju lutem fusni te dhenat"
+							widgetVar="logInDialog" minHeight="40">
+							<h:panelGrid id="inputPanel" columns="2" cellpadding="10"
+								styleClass="logInPannel">
+
+								<h:outputLabel value="Email:" />
+								<h:inputText value="#{adminBean.userService.email}" />
+								<h:outputLabel value="Password:" />
+								<h:inputSecret value="#{adminBean.userService.password}"></h:inputSecret>
+
+							</h:panelGrid>
+
+							<h:outputLabel value="Email me fjalekalimin nuk perputhen"
+								style="color: red" rendered="#{adminBean.showMessage}" />
+
+							<p:commandButton actionListener="#{adminBean.LogIn()}"
+								value="Hyr" update=""></p:commandButton>
+						</p:dialog>
+					</div>
+				</h:form>
+			</header>
+
+		</div>
+	</div>
+
+</ui:composition>

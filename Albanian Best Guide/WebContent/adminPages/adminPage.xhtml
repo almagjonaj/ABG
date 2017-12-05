@@ -1,0 +1,75 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Administrator Page</title>
+	<link href="../resources/css/layout.css" rel="stylesheet"
+		type="text/css" media="all"></link>
+	<h:outputStylesheet library="css" name="user.css" />
+</h:head>
+
+<h:body id="adminBody">
+
+	<h:form id="header">
+		<ui:include src="../components/header.xhtml" />
+	</h:form>
+
+	<h:graphicImage id="image" value="/resources/images/administrator.png"
+		styleClass="logo">
+	</h:graphicImage>
+
+	<p:tabView id="tabView" styleClass="tabView">
+
+		<p:tab title="Guidat Turistike">
+			<h:form id="guideForm">
+				<ui:include src="TabComponents/GuidatTuristike.xhtml" />
+			</h:form>
+		</p:tab>
+
+		<p:tab title="Destinacionet">
+			<h:form id="destinationForm">
+				<ui:include src="TabComponents/Destinacionet.xhtml" />
+			</h:form>
+		</p:tab>
+
+		<p:tab title="Stacionet e Nisjes">
+			<h:form id="stationForm">
+				<ui:include src="TabComponents/Stacionet.xhtml" />
+			</h:form>
+		</p:tab>
+
+		<p:tab title="Rezervimet">
+			<h:form id="bookingHistoryForm">
+				<ui:include src="TabComponents/Historiku.xhtml" />
+			</h:form>
+		</p:tab>
+
+		<p:tab title="Administratoret"
+			rendered="#{adminBean.userService.superadmin_logged}">
+			<h:form id="adminForm">
+				<ui:include src="TabComponents/Administratoret.xhtml" />
+			</h:form>
+		</p:tab>
+
+		<p:tab title="Klientet"
+			rendered="#{adminBean.userService.superadmin_logged}">
+			<h:form id="clientForm">
+				<ui:include src="TabComponents/Klientet.xhtml" />
+			</h:form>
+		</p:tab>
+
+	</p:tabView>
+
+	<div class="wrapper row4 bgded">
+		<ui:include src="../components/footer.xhtml" />
+	</div>
+
+	<!-- JAVASCRIPTS -->
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/jquery.backtotop.js"></script>
+	<script src="resources/js/jquery.mobilemenu.js"></script>
+</h:body>
+</html>

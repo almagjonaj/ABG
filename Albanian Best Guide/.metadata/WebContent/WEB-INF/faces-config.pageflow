@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15094909568270" configfile="/Albanian Best Guide/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="adminPages/adminLogIn.xhtml" id="pf15106560165350" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf15106560165361" inlinks="pf15106560165362" path="/adminPages/adminLogIn.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="adminPages/adminPage.xhtml" id="pf15106560165363" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf15106560165362" inlinks="pf15106560165361" path="/adminPages/adminPage.xhtml"/>
+  <links id="pf15106560165361" target="pf15106560165363" source="pf15106560165350" outcome="success" redirect="true"/>
+  <links id="pf15106560165362" target="pf15106560165350" source="pf15106560165363" outcome="logout" redirect="true"/>
+</pageflow:Pageflow>

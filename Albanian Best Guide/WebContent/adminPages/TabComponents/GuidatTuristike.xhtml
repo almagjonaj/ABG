@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dataTable id="guideData" var="guide"
+		value="#{adminBean.guideService.guideList}" widgetVar="guideTable"
+		emptyMessage="Nuk ka guida">
+
+		<f:facet name="header">
+			<p:panelGrid columns="2" layout="grid">
+				<h:outputText value="Lista e Guidave" style='float: left;'></h:outputText>
+				<p:commandButton value="Shto Guide" icon="ui-icon-plus"
+					oncomplete="PF('AddGuideDialog').show();" style="float: right;"></p:commandButton>
+			</p:panelGrid>
+		</f:facet>
+
+		<p:column headerText="ID e Guides" filterMatchMode="contains">
+			<h:outputText value="#{guide.idguide}" />
+		</p:column>
+
+		<p:column headerText="Stacioni i Nisjes" filterMatchMode="contains">
+			<h:outputText value="#{guide.departure_station.station_address}" />
+		</p:column>
+
+		<p:column headerText="Destinacioni" filterMatchMode="contains">
+			<h:outputText value="#{guide.destination.destination_address}" />
+		</p:column>
+
+		<p:column headerText="Orari i Nisjes" filterMatchMode="contains">
+			<h:outputText value="#{guide.departure_time}" />
+		</p:column>
+
+		<p:column headerText="Orari i Mbritjes" filterMatchMode="lte">
+			<h:outputText value="#{guide.arrival_time}" />
+		</p:column>
+
+		<p:column headerText="Kategoria e Guides" filterMatchMode="lte">
+			<h:outputText value="#{guide.guide_description}" />
+		</p:column>
+
+		<p:column headerText="Kategoria e Guides" filterMatchMode="lte">
+			<h:outputText value="#{guide.guideCategory.guide_name}" />
+		</p:column>
+
+		<p:column headerText="Ndrysho">
+			<p:commandLink onclick="PF('EditGuideDialog').show();">
+				<h:outputText styleClass="ui-icon ui-icon-wrench"
+					style="margin:0 auto;" />
+				<f:setPropertyActionListener value="#{guide}"
+					target="#{adminBean.guideService.selectedGuide}" />
+			</p:commandLink>
+		</p:column>
+
+	</p:dataTable>
+
+	<p:dialog header="Ju lutem fusni te dhenat" widgetVar="AddGuideDialog"
+		minHeight="40">
+		<h:panelGrid id="addGuidePanel" columns="2" cellpadding="10">
+
+			<h:outputLabel value="Statcioni i Nisjes:" />
+			<h:selectOneMenu
+				value="#{adminBean.guideService.guide.departure_station}"
+				converter="#{departureStationConverter}" label="Stacioni">
+				<f:selectItem
+					itemLabel="#{adminBean.guideService.guide.departure_station.station_address}, 
+					#{adminBean.guideService.guide.departure_station.city.city_name}"
+					itemValue="#{adminBean.guideService.guide.departure_station}" />
+				<f:selectItems
+					value="#{adminBean.departureStationService.departureStationList}"
+					var="departureStation"
+					itemLabel="#{departureStation.station_address}, #{departureStation.city.city_name},"
+					itemValue="#{departureStation}" />
+			</h:selectOneMenu>
+			<h:outputLabel value="Destinacioni:" />
+			<h:selectOneMenu value="#{adminBean.guideService.guide.destination}"
+				converter="#{destinationConverter}" label="Destinacioni">
+				<f:selectItem
+					itemLabel="#{adminBean.guideService.guide.destination.destination_address}, 
+					#{adminBean.guideService.guide.destination.city.city_name}"
+					itemValue="#{adminBean.guideService.guide.destination}" />
+				<f:selectItems
+					value="#{adminBean.destinationService.destinationList}"
+					var="destination"
+					itemLabel="#{destination.destination_address}, #{destination.city.city_name}"
+					itemValue="#{destination}" />
+			</h:selectOneMenu>
+
+		</h:panelGrid>
+
+		<p:commandButton value="Shto Guide"
+			actionListener="#{adminBean.guideService.addGuide()}"></p:commandButton>
+
+	</p:dialog>
+
+	<p:dialog header="Ju lutem fusni te dhenat" widgetVar="EditGuideDialog"
+		minHeight="40">
+		<h:panelGrid id="editGuidePanel" columns="2" cellpadding="10">
+
+			<h:outputLabel value="Statcioni i Nisjes:" />
+			<h:selectOneMenu
+				value="#{adminBean.guideService.selectedGuide.departure_station}"
+				converter="#{departureStationConverter}" label="Stacioni">
+				<f:selectItems
+					value="#{adminBean.departureStationService.departureStationList}"
+					var="departureStation"
+					itemLabel="#{departureStation.station_address}, #{departureStation.city.city_name},"
+					itemValue="#{departureStation}" />
+			</h:selectOneMenu>
+			<h:outputLabel value="Destinacioni:" />
+			<h:selectOneMenu
+				value="#{adminBean.guideService.selectedGuide.destination}"
+				converter="#{destinationConverter}" label="Destinacioni">
+				<f:selectItems
+					value="#{adminBean.destinationService.destinationList}"
+					var="destination"
+					itemLabel="#{destination.destination_address}, #{destination.city.city_name}"
+					itemValue="#{destination}" />
+			</h:selectOneMenu>
+
+		</h:panelGrid>
+
+		<p:commandButton value="Ndrysho Guiden"
+			actionListener="#{adminBean.guideService.editGuide()}"></p:commandButton>
+
+	</p:dialog>
+
+</ui:composition>

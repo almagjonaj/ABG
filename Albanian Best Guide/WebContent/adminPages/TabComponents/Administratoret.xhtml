@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dataTable id="adminData" var="user"
+		value="#{adminBean.userService.getAdmins()}" widgetVar="adminTable"
+		emptyMessage="Nuk gjendet guida">
+
+		<f:facet name="header">
+			<p:panelGrid columns="2" layout="grid">
+				<h:outputText value="Lista e Administratoreve" style='float: left;'></h:outputText>
+				<p:commandButton value="Shto Administrator" icon="ui-icon-plus"
+					oncomplete="PF('AddAdminDialog').show();" style="float: right;"></p:commandButton>
+			</p:panelGrid>
+		</f:facet>
+
+		<p:column headerText="Emri" filterMatchMode="contains">
+			<h:outputText value="#{user.user_name}" />
+		</p:column>
+
+		<p:column headerText="Mbiemri" filterMatchMode="contains">
+			<h:outputText value="#{user.user_lastname}" />
+		</p:column>
+
+		<p:column headerText="Email" filterMatchMode="contains">
+			<h:outputText value="#{user.user_email}" />
+		</p:column>
+
+		<p:column headerText="Lloji i Administratorit"
+			filterMatchMode="contains">
+			<h:outputText value="#{user.user_type.user_type_name}" />
+		</p:column>
+
+		<p:column headerText="Fshi">
+			<p:commandLink oncomplete="PF('DeleteAdminDialog').show()"
+				title="Fshi" update="tabView:adminForm:deleteAdminPanel">
+				<h:outputText styleClass="ui-icon ui-icon-trash"
+					style="margin:0 auto;" />
+				<f:setPropertyActionListener value="#{removedUser}"
+					target="#{adminBean.userService.removedUser}" />
+			</p:commandLink>
+		</p:column>
+	</p:dataTable>
+
+	<p:dialog header="Ju lutem fusni te dhenat" widgetVar="AddAdminDialog"
+		minHeight="40">
+		<h:panelGrid id="addAdminPanel" columns="2" cellpadding="10">
+
+			<h:outputLabel value="Emri: " />
+			<h:inputText value="#{adminBean.userService.user.user_name}"></h:inputText>
+			<h:outputLabel value="Mbiemri: " />
+			<h:inputText value="#{adminBean.userService.user.user_lastname}"></h:inputText>
+			<h:outputLabel value="Email: " />
+			<h:inputText value="#{adminBean.userService.user.user_email}"></h:inputText>
+			<h:outputLabel value="Roli: " />
+			<p:selectOneMenu id="adminMenu"
+				value="#{adminBean.userService.user.user_type}"
+				converter="#{userTypeConverter}" label="Roli">
+				<f:selectItems value="#{adminBean.userTypeService.listAdminTypes()}"
+					var="userType" itemLabel="#{userType.user_type_name}"
+					itemValue="#{userType}" />
+			</p:selectOneMenu>
+
+		</h:panelGrid>
+
+		<p:commandButton value="Shto Administrator"
+			actionListener="#{adminBean.userService.addUser()}"></p:commandButton>
+
+	</p:dialog>
+
+	<p:dialog header="Ju lutem fusni te dhenat"
+		widgetVar="DeleteAdminDialog" minHeight="40">
+		<h:panelGrid id="deleteAdminPanel" columns="3" cellpadding="10">
+			<h:outputLabel value="Konfirmo: "></h:outputLabel>
+			<p:commandButton value="Fshi"
+				actionListener="#{adminBean.userService.deleteUser()}"
+				oncomplete="PF('DeleteAdminDialog').hide();"></p:commandButton>
+			<p:commandButton value="Anullo"
+				oncomplete="PF('DeleteAdminDialog').hide()"></p:commandButton>
+		</h:panelGrid>
+
+	</p:dialog>
+
+</ui:composition>

@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dataTable id="bookingHistoryData" var="booking"
+		value="#{adminBean.bookingHistoryService.bookingHistoryList}"
+		widgetVar="bookingTable" emptyMessage="Nuk gjendet bileta">
+
+		<f:facet name="header">
+			<p:panelGrid columns="2" layout="grid">
+				<h:outputText value="Historiku i Rezervimeve" style="float: left;"></h:outputText>
+			</p:panelGrid>
+		</f:facet>
+
+		<p:column filterBy="" headerText="ID e Guides"
+			filterMatchMode="contains">
+			<h:outputText value="#{booking.idbooking_history}" />
+		</p:column>
+
+		<p:column filterBy="" headerText="Adresa e Destinacionit"
+			filterMatchMode="contains">
+			<h:outputText
+				value="#{booking.guide.destination.destination_address}" />
+		</p:column>
+
+		<p:column filterBy="" headerText="Data e Nisjes" filterMatchMode="lte">
+			<h:outputText value="#{booking.guide.departure_time}" />
+		</p:column>
+
+		<p:column filterBy="" headerText="Klienti" filterMatchMode="lte">
+			<h:outputText value="#{booking.user.user_name} #{booking.user.user_lastname}" />
+		</p:column>
+
+		<p:column filterBy="" headerText="Email i Klientit"
+			filterMatchMode="lte">
+			<h:outputText value="#{booking.user.user_email}" />
+		</p:column>
+
+		<p:column headerText="Fshi">
+			<p:commandLink oncomplete="PF('EditDestinationDialog').show()"
+				title="Ndrysho"
+				update=":tabView:destinationForm:editDestinationPanel">
+				<h:outputText styleClass="ui-icon ui-icon-trash"
+					style="margin:0 auto;" />
+				<f:setPropertyActionListener value="#{destination}"
+					target="#{adminBean.destinationService.selectedDestination}" />
+			</p:commandLink>
+		</p:column>
+
+	</p:dataTable>
+
+	<p:dialog header="Ju lutem fusni te dhenat"
+		widgetVar="DeleteBookingHistoryDialog" minHeight="40">
+		<h:panelGrid id="deleteBookingHistoryPanel" columns="3"
+			cellpadding="10">
+			<h:outputLabel value="Konfirmo: "></h:outputLabel>
+			<p:commandButton value="Fshi"
+				actionListener="#{adminBean.bookingHistory.deleteBookingHistory()}"
+				update="tabView:bookingHistoryForm:bookingHistoryData"
+				oncomplete="PF('DeleteBookingHistoryDialog').hide()"></p:commandButton>
+			<p:commandButton value="Anullo"
+				oncomplete="PF('DeleteBookingHistoryDialog').hide()"></p:commandButton>
+		</h:panelGrid>
+	</p:dialog>
+
+</ui:composition>

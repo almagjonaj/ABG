@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>ABG | Na Kontaktoni</title>
+	<link href="../resources/css/layout.css" rel="stylesheet"
+		type="text/css" media="all"></link>
+	<h:outputStylesheet library="css" name="user.css" />
+</h:head>
+
+<h:body id="top">
+	<h:form id="contactForm">
+		<div class="bgded overlay"
+			style="background-image: url('../resources/images/sight-3.jpg');">
+			<div class="wrapper row1">
+				<ui:include src="../components/header.xhtml" />
+			</div>
+
+		</div>
+
+		<div>
+			<h:dataTable style="height: 400px"></h:dataTable>
+		</div>
+
+		<div class="wrapper row4 bgded overlay">
+			<ui:include src="../components/footer.xhtml" />
+		</div>
+
+		<!-- JAVASCRIPTS -->
+		<script src="resources/js/jquery.min.js"></script>
+		<script src="resources/js/jquery.backtotop.js"></script>
+		<script src="resources/js/jquery.mobilemenu.js"></script>
+	</h:form>
+</h:body>
+</html>

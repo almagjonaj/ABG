@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+		<p:dataTable var="user"
+			value="#{adminBean.userService.getClients()}" widgetVar="guideTable"
+			emptyMessage="Nuk gjendet guida">
+
+			<f:facet name="header">
+				<p:panelGrid columns="2" layout="grid">
+					<h:outputText value="Lista e Klienteve" style='float: left;'></h:outputText>
+				</p:panelGrid>
+			</f:facet>
+
+			<p:column headerText="Emri" filterMatchMode="contains">
+				<h:outputText value="#{user.user_name}" />
+			</p:column>
+
+			<p:column headerText="Mbiemri" filterMatchMode="contains">
+				<h:outputText value="#{user.user_lastname}" />
+			</p:column>
+
+			<p:column headerText="Email" filterMatchMode="contains">
+				<h:outputText value="#{user.user_email}" />
+			</p:column>
+		</p:dataTable>
+
+</ui:composition>

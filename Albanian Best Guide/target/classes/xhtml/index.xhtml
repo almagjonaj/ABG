@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>ABG</title>
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css"
+		media="all"></link>
+	<h:outputStylesheet library="css" name="user.css" />
+</h:head>
+
+<h:body id="top">
+
+	<!-- Top Background Image Wrapper -->
+	<div class="bgded overlay"
+		style="background-image: url('resources/images/sight-3.jpg');">
+		<!-- ################################################################################################ -->
+		<div class="wrapper row1">
+			<header id="header" class="hoc clear">
+				<!-- ################################################################################################ -->
+				<nav id="mainav" class="fl_left">
+					<ul class="clear">
+						<li class="active"><a href="index.xhtml">Faqja Kryesore</a></li>
+						<li><a href="destinations.xhtml">Destinacionet
+								Turistike</a></li>
+						<li><a href="contact.xhtml">Na kontaktoni</a></li>
+					</ul>
+				</nav>
+				<div id="logo" class="fl_right">
+					<h:panelGrid columns="2" style="background: transparent"
+						rendered="false">
+						<p:commandButton value="HYR" styleClass="login" />
+						<p:commandButton value="REGJISTROHU" styleClass="login" />
+					</h:panelGrid>
+					<h:panelGrid columns="3" style="background: transparent">
+						<h:outputLabel value="PERSHENDETJE, EVION"
+							styleClass="pershendetje"></h:outputLabel>
+						<p:commandButton value="Llogaria" styleClass="login" />
+						<p:commandButton value="DIL" styleClass="login" />
+					</h:panelGrid>
+				</div>
+				<!-- ################################################################################################ -->
+
+			</header>
+		</div>
+		<!-- ################################################################################################ -->
+		<!-- ################################################################################################ -->
+		<!-- ################################################################################################ -->
+		<section id="pageintro" class="hoc clear">
+			<div>
+				<!-- ################################################################################################ -->
+				<h2 class="heading">Albanian Best Guide</h2>
+				<p>Zgjidhni te eksploroni Shqiperine me syte tane</p>
+				<p:button value="Kerko Guida" styleClass="kerko">
+				</p:button>
+				<!-- ################################################################################################ -->
+			</div>
+		</section>
+		<!-- ################################################################################################ -->
+	</div>
+	<!-- End Top Background Image Wrapper -->
+
+	<div></div>
+
+	<div class="wrapper row4 bgded overlay">
+		<footer id="footer" class="hoc clear">
+			<!-- ################################################################################################ -->
+			<div class="one_third first">
+				<h6 class="heading">Rreth Nesh</h6>
+				<p></p>
+				<p class="btmspace-50"></p>
+			</div>
+			<div class="one_third">
+				<h6 class="heading">Kontakt</h6>
+				<ul class="nospace btmspace-30 linklist contact">
+					<li><i class="fa fa-map-marker"></i>
+						<address>Rruga Sulejman Delvina, Tirana 1019, Albania</address></li>
+					<li><i class="fa fa-phone"></i> +355676076677</li>
+					<li><i class="fa fa-envelope-o"></i> info@abg.al</li>
+				</ul>
+				<ul class="faico clear">
+					<li><a class="faicon-facebook"
+						href="https://www.facebook.com/evioncane"><i
+							class="fa fa-facebook"></i></a></li>
+					<li><a class="faicon-twitter" href="#"><i
+							class="fa fa-twitter"></i></a></li>
+					<li><a class="faicon-google-plus" href="#"><i
+							class="fa fa-google-plus"></i></a></li>
+				</ul>
+			</div>
+			<div class="one_third">
+				<h6 class="heading">Logo</h6>
+				<article>
+					<a href="#"><img class="btmspace-15"
+						style="background-color: white" src="resources/images/ABGlogo.png"
+						alt=""></img></a>
+					<p class="nospace"></p>
+				</article>
+			</div>
+			<!-- ################################################################################################ -->
+		</footer>
+	</div>
+
+	<!-- JAVASCRIPTS -->
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/jquery.backtotop.js"></script>
+	<script src="resources/js/jquery.mobilemenu.js"></script>
+</h:body>
+</html>

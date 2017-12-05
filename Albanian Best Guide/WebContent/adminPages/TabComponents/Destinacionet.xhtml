@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<p:dataTable id="destinationData" var="destination"
+		value="#{adminBean.destinationService.destinationList}"
+		widgetVar="destinationTable" emptyMessage="Nuk gjendet destinacioni">
+
+		<f:facet name="header">
+			<p:panelGrid columns="2" layout="grid">
+				<h:outputText value="Lista e Destinacioneve" style='float: left;'></h:outputText>
+				<p:commandButton value="Shto Destinacion" icon="ui-icon-plus"
+					oncomplete="PF('AddDestinationDialog').show();"
+					style="float: right;">
+				</p:commandButton>
+			</p:panelGrid>
+		</f:facet>
+
+		<p:column filterBy="" headerText="Adresa e Destinacionit"
+			filterMatchMode="contains">
+			<h:outputText value="#{destination.destination_address}" />
+		</p:column>
+
+		<p:column filterBy="" headerText="Qyteti" filterMatchMode="lte">
+			<h:outputText value="#{destination.city.city_name}" />
+		</p:column>
+
+		<p:column headerText="Ndrysho">
+			<p:commandLink oncomplete="PF('EditDestinationDialog').show()"
+				title="Ndrysho"
+				update=":tabView:destinationForm:editDestinationPanel">
+				<h:outputText styleClass="ui-icon ui-icon-wrench"
+					style="margin:0 auto;" />
+				<f:setPropertyActionListener value="#{destination}"
+					target="#{adminBean.destinationService.selectedDestination}" />
+			</p:commandLink>
+		</p:column>
+
+	</p:dataTable>
+
+	<p:dialog header="Ju lutem fusni te dhenat"
+		widgetVar="AddDestinationDialog" minHeight="40">
+		<h:panelGrid id="addDestinationPanel" columns="2" cellpadding="10">
+			<h:outputLabel value="Adresa e Destinacionit:" />
+			<h:inputText
+				value="#{adminBean.destinationService.destination.destination_address}" />
+			<h:outputLabel value="Qyteti:" />
+
+			<h:selectOneMenu
+				value="#{adminBean.destinationService.destination.city}"
+				converter="#{cityConverter}" label="Qyteti">
+				<f:selectItems value="#{adminBean.cityService.cityList}" var="city"
+					itemLabel="#{city.city_name}" itemValue="#{city}" />
+			</h:selectOneMenu>
+		</h:panelGrid>
+		<p:commandButton value="Shto Destinacionin"
+			actionListener="#{adminBean.destinationService.addDestination()}"></p:commandButton>
+	</p:dialog>
+
+	<p:dialog header="Ju lutem fusni te dhenat"
+		widgetVar="EditDestinationDialog" minHeight="40">
+		<h:panelGrid id="editDestinationPanel" columns="2" cellpadding="10">
+
+			<h:outputLabel value="Adresa e Destinacionit:" />
+			<h:inputText
+				value="#{adminBean.destinationService.selectedDestination.destination_address}" />
+			<h:outputLabel value="Qyteti:" />
+
+			<h:selectOneMenu
+				value="#{adminBean.destinationService.selectedDestination.city}"
+				converter="#{cityConverter}" label="Qyteti">
+				<f:selectItem
+					itemLabel="#{adminBean.destinationService.selectedDestination.city.city_name}"
+					itemValue="#{adminBean.destinationService.selectedDestination.city}" />
+				<f:selectItems value="#{adminBean.cityService.cityList}" var="city"
+					itemLabel="#{city.city_name}" itemValue="#{city}" />
+			</h:selectOneMenu>
+
+		</h:panelGrid>
+		<p:commandButton value="Ndrysho Destinacionin"
+			update="tabView:destinationForm:destinationData"
+			actionListener="#{adminBean.destinationService.editDestination()}"
+			oncomplete="PF('EditDestinationDialog').hide()"></p:commandButton>
+	</p:dialog>
+
+</ui:composition>
